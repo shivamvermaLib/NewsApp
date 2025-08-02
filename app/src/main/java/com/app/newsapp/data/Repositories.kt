@@ -1,7 +1,6 @@
 package com.app.newsapp.data
 
 import com.app.newsapp.data.mapper.toDomainModel
-import com.app.newsapp.domain.NewsRepository as DomainNewsRepository
 import com.app.newsapp.domain.model.Article
 import com.app.newsapp.domain.model.Result
 import kotlinx.coroutines.CoroutineDispatcher
@@ -9,10 +8,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Named
 
-class NewsRepository @Inject constructor(
+class NewsRepositoryImpl @Inject constructor(
     private val remoteSource: RemoteSource,
     @Named("IO") private val dispatcher: CoroutineDispatcher
-) : DomainNewsRepository {
+) : NewsRepository {
 
     override suspend fun getNews(): Result<List<Article>> = withContext(dispatcher) {
         try {
@@ -23,4 +22,8 @@ class NewsRepository @Inject constructor(
             Result.Error(e)
         }
     }
+}
+
+interface NewsRepository {
+    suspend fun getNews(): Result<List<Article>>
 }

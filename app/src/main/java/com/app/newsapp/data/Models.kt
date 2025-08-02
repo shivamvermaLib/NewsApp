@@ -2,7 +2,6 @@ package com.app.newsapp.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 
 @Serializable
 data class NewsResponse(
@@ -28,9 +27,5 @@ data class NewsResponse(
             @SerialName("name") var name: String? = null
 
         )
-
-        fun getPublishedAtFormatted(): String {
-            return publishedAt?.replace("T", " ")?.replace("Z", "") ?: "Unknown"
-        }
     }
 }

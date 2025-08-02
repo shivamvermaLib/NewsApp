@@ -1,5 +1,6 @@
 package com.app.newsapp.domain
 
+import com.app.newsapp.data.NewsRepository
 import com.app.newsapp.domain.model.Article
 import com.app.newsapp.domain.model.Result
 import javax.inject.Inject

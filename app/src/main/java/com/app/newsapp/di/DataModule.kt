@@ -2,9 +2,8 @@ package com.app.newsapp.di
 
 import android.util.Log
 import com.app.newsapp.data.NewsRepository
-import com.app.newsapp.domain.GetArticleByIdUseCase
+import com.app.newsapp.data.NewsRepositoryImpl
 import com.app.newsapp.domain.GetNewsUseCase
-import com.app.newsapp.domain.NewsRepository as DomainNewsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -100,20 +99,15 @@ class DataModule {
 abstract class RepositoryModule {
     @Binds
     abstract fun bindNewsRepository(
-        newsRepository: NewsRepository
-    ): DomainNewsRepository
+        newsRepository: NewsRepositoryImpl
+    ): NewsRepository
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
     @Provides
-    fun provideGetNewsUseCase(newsRepository: DomainNewsRepository): GetNewsUseCase {
+    fun provideGetNewsUseCase(newsRepository: NewsRepository): GetNewsUseCase {
         return GetNewsUseCase(newsRepository)
-    }
-
-    @Provides
-    fun provideGetArticleByIdUseCase(newsRepository: DomainNewsRepository): GetArticleByIdUseCase {
-        return GetArticleByIdUseCase(newsRepository)
     }
 }
